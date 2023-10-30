@@ -17,7 +17,7 @@
                     >Tài Khoản :
                   </label>
                   <input
-                  v-model="data.email"
+                    v-model="data.email"
                     type="email"
                     id="form2Example18"
                     class="form-control form-control-lg"
@@ -29,7 +29,7 @@
                     >Mật Khẩu :
                   </label>
                   <input
-                  v-model="data.password"
+                    v-model="data.password"
                     type="password"
                     id="form2Example28"
                     class="form-control form-control-lg"
@@ -37,12 +37,15 @@
                 </div>
 
                 <div class="pt-1 mb-4">
-                 
-                  <input type="submit" class="btn btn-info btn-lg btn-block" value="Đăng nhập">
+                  <input
+                    type="submit"
+                    class="btn btn-info btn-lg btn-block"
+                    value="Đăng nhập"
+                  />
                 </div>
                 <p>
                   Don't have an account?
-                  <a href="#!" class="link-info">Register here</a>
+                  <router-link to="/register">Register here</router-link>
                 </p>
               </form>
             </div>
@@ -61,9 +64,13 @@
   </div>
 </template>
 <script lang="ts">
-import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
 import UserService from "../services/user.services";
+
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
+
 export default {
   name: "Login",
   setup() {
@@ -71,24 +78,34 @@ export default {
       email: "",
       password: "",
     });
-    let message = "tai khoan khong co"
+    let message = "tai khoan khong co";
     const router = useRouter();
+
     const submit = async () => {
-      console.log(data)
-      const user = await UserService.login(data)
+      const user = await UserService.login(data);
+
+      localStorage.setItem('auth', JSON.stringify(user.data))
+      //  console.log(user)
       if (user) {
-        await router.push('/');
-         message = "dang nhap thanh cong"
+        router.push("/home");
+        Swal.fire({
+          title: "Thông báo",
+          text: "dang nhap thanh cong",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+     
       } else {
-         message = "tai khoan khong co"
+        //  message = user.data.message
+        console.log(user);
       }
       //  await router.push('/');
-    }
+    };
     return {
       data,
-      submit
-    }
-  }
+      submit,
+    };
+  },
 };
 </script>
 <style>

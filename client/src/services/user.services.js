@@ -1,3 +1,4 @@
+
 import createApiClient from "./api.service";
 
 class UserService {
@@ -13,8 +14,18 @@ class UserService {
     }
   }
   async login(data) {
-    console.log(data);
-    return data;
+    
+    let auth = await this.api.post("/login", data);
+    // console.log(auth.data)
+    try {
+      return await this.api.post("/login", data);
+    } catch (error) {
+      return console.log(error)
+    }
+  }
+  async logout(data) {
+    localStorage.clear();
+    
   }
 }
 

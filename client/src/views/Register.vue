@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div className="mt-5 pt-2">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-6 text-black">
           <div
             class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5"
           >
-          <!-- {{ message }} -->
+      
             <form style="width: 23rem" @submit.prevent="submit">
               <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
                 Đăng kí
@@ -73,6 +73,7 @@ import { useRouter } from 'vue-router';
 import UserService from "../services/user.services";
 import Swal from "sweetalert2";
 import 'sweetalert2/src/sweetalert2.scss'
+
 export default {
   name: "Register",
   
@@ -83,19 +84,18 @@ export default {
       password: "",
       order:[],
     });
-    let message : " ";
+
     const router = useRouter();
     const submit = async () => {
-      console.log(data);
+      // console.log(data);
       const checkuser = await UserService.register(data)
-      // console.log(checkuser.message);
-      // message = checkuser.message;
       if (checkuser) {
         await router.push('/login');
         Swal.fire("Success", "Registration Was successful", "success");
       } else {
         Swal.fire("Error", "Something Went Wrong", "error",);
       }
+
     };
     return {
       data,

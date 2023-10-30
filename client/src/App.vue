@@ -11,7 +11,7 @@ export default {
   <div class="" id="app">
     <AppHeader />
 
-     <div class="container mt-3">
+     <div class="h-auto w-full">
       <router-view />
     </div> 
   </div>
