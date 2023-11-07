@@ -1,20 +1,27 @@
 <template>
   <div class="card border m-2 p-2">
     <div>
-      <img
-        src="https://th.bing.com/th/id/R.3dc5f998e54c345e8fdcb69fbe304051?rik=23kwO9bHYTPS4A&pid=ImgRaw&r=0"
-        alt=""
-      />
+      <img :src="product.img.srcImg" :alt="product.img.nameImg" />
     </div>
-    <div>NameProduct</div>
-    <div>PriceProduct vnđ/Quyển</div>
-    <div class="oder-card">
-      <input type="number" min="0" step="1" value="0" />
-      <i
-        class="fa-solid fa-cart-shopping"
-        style="font-size: 24px"
-        v-on:click="orderProduct"
-      ></i>
+    <div>{{ product.name }}</div>
+    <div>{{ product.price }} vnđ/Quyển</div>
+    <div class="oder-card flex">
+      <form @submit.prevent="orderProduct" class="row">
+        <div>
+          <input
+            type="number"
+            min="0"
+            step="1"
+            placeholder="0"
+            v-model="formData.quantity"
+          />
+        </div>
+        <div class="iconcard">
+          <button type="submit">
+            <i class="fa-solid fa-cart-shopping" style="font-size: 24px"></i>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -31,7 +38,7 @@ input {
 .card {
   width: 200px;
   height: 250px;
-  border: 10px solid 2px blue;
+  border: 10px solid 5px rgb(11, 11, 12);
   border-color: aqua;
   background: aliceblue;
   display: flex;
@@ -45,20 +52,61 @@ input {
   text-align: center;
   justify-content: space-around;
 }
+.iconcard {
+  cursor: pointer;
+  color: rgb(71, 100, 100);
+}
 </style>
 <script>
-import ProductService from "../services/product.service";
-export default {
-  // props: {
-  //   product: { type: Object, required: true },
-  // },
+import Swal from "sweetalert2";
 
+import UserService from "../services/user.services";
+
+export default {
+  name: "cardProduct",
+  props: {
+    product: { type: Object, required: true },
+  },
+  data() {
+    return {
+      formData: {
+        quantity: "0",
+      },
+    };
+  },
   methods: {
-    orderProduct() {
-      const user = localStorage.getItem("auth");
-      console.log(user);
-      // const order = { user: user, product: product };
-      // console.log(order);
+    async orderProduct(e) {
+      // console.log(this.formData.quantity);
+      if (this.formData.quantity == 0) {
+        Swal.fire("thông báo ", "Vui lòng nhập số lượng hàng ", "warning");
+      } else {
+        const user = JSON.parse(localStorage.getItem("auth"));
+        const emailuser = user[0].email;
+        // console.log(this.formData.quantity);
+        // console.log(emailuser)
+        const productdata = {
+          _id: this.product._id,
+          name: this.product.name,
+          description: this.product.description,
+          img: {
+            nameImg: this.product.img.nameImg,
+            srcImg: this.product.img.srcImg,
+          },
+          note: this.product.note,
+          price: this.product.price,
+        };
+        // console.log(productdata)
+        const inputdata = {
+          user: emailuser,
+          product: productdata,
+          quantity: this.formData.quantity,
+        };
+        // console.log(inputdata)
+
+        const resutl = await UserService.orderProducts(inputdata);
+        Swal.fire("thông báo thành công ", resutl.data.message, "success");
+        // console.log(resutl);
+      }
     },
   },
 };

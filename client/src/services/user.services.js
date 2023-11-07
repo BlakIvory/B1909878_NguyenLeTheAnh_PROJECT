@@ -14,18 +14,26 @@ class UserService {
     }
   }
   async login(data) {
-    
     let auth = await this.api.post("/login", data);
     // console.log(auth.data)
     try {
       return await this.api.post("/login", data);
     } catch (error) {
-      return console.log(error)
+      return console.log(error);
     }
   }
   async logout(data) {
     localStorage.clear();
-    
+  }
+  async orderProducts(data) {
+    return await this.api.post("/orderProduct", data);
+  }
+
+  async getAllOrderProducts(data) {
+    return await this.api.get("/getOrderProduct", data);
+  }
+  async Order(data) {
+    return await this.api.post("/Order", data);
   }
 }
 

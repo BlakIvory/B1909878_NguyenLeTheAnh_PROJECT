@@ -18,14 +18,15 @@ exports.createProduct = async (req, res, next) => {
     );
   }
 }
-exports.getAllProducts = async  (req,res) => {
-// console.log(req.body)
+exports.getAllProducts = async(req,res) => {
   try {
     const productService= new ProductService(MongoDB.client)
+    
     const products = await productService.AllProducts();
+    // console.log("req")
     return res.send(products)
   } catch (error) {
     console.log(error)
   }
-}
 
+}

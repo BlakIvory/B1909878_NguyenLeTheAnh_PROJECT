@@ -10,7 +10,6 @@ export default {
 <template>
   <div class="" id="app">
     <AppHeader />
-
      <div class="h-auto w-full">
       <router-view />
     </div> 

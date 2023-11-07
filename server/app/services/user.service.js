@@ -3,7 +3,7 @@ const ApiError = require("../api-error");
 
 class UserService {
   constructor(client) {
-    this.User = client.db().collection("products");
+    this.User = client.db().collection("users");
   }
 
   extractUserData(payload) {
@@ -11,8 +11,8 @@ class UserService {
       name: payload.name,
       email: payload.email,
       password: payload.password,
-      order: {},
-      giohang: {},
+      order: [],
+      giohang: [],
       isAdmin: payload.isAdmin,
     };
     Object.keys(user).forEach(
@@ -26,7 +26,7 @@ class UserService {
     // console.log(user);
     const result = await this.User.findOneAndUpdate(
       user,
-      { $set: { order: {}, isAdmin: false, giohang : {} } },
+      { $set: { order: [], isAdmin: false, giohang: [] } },
       { returnDocument: "after", upsert: true }
     );
     return result;
@@ -48,6 +48,47 @@ class UserService {
     return await this.User.findOne({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     });
+  }
+
+  async orderProduct(data) {
+    // console.log(data)
+    const email = data.user;
+    // console.log(email)
+    const product = data.product;
+    // console.log(product)
+    const quantity = data.quantity;
+    // console.log(quantity)
+    const dataOrder = { product: product, quantity: quantity };
+    // console.log(dataOrder)
+    const result = await this.User.findOneAndUpdate(
+      { email: email },
+      { $push: { giohang: dataOrder } },
+      { returnDocument: "after" }
+    );
+    return result;
+  }
+
+  async order(data) {
+    // console.log(data)
+    const email = data.user;
+    // console.log(email)
+    const products = data.products;
+  // console.log(products)
+    const phone = data.phone;
+    // console.log(phone)
+    const address = data.address;
+    // console.log(address)
+    const total = data.total;
+
+    const dataOrder ={ products: products,total : total, phone :phone, address : address};
+    // console.log(dataOrder)
+    const result = await this.User.findOneAndUpdate(
+      { email: email },
+      { $push: { order: dataOrder } },
+      { returnDocument: "after" }
+    );
+    // console.log(result)
+    return result;
   }
 }
 

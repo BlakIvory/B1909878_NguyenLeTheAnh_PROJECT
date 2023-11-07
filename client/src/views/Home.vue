@@ -1,4 +1,4 @@
-<template lang="">
+<template >
   <div className="container ">
     <div className="flex border  ">
       <nav class="primary-navigation navbar navbar-expand">
@@ -10,11 +10,11 @@
           </li>
           <li class="nav-item primarynavigation">
             <router-link class="nav-link" :to="{ name: 'home' }"
-              >Gioi thieu |</router-link
+              >Giới thiệu |</router-link
             >
           </li>
           <li class="nav-item primarynavigation">
-            <router-link class="nav-link" :to="{ name: 'home' }"
+            <router-link class="nav-link" :to="{ name: 'giohang' }"
               >Giỏ hàng |</router-link
             >
           </li>
@@ -32,42 +32,35 @@
       </nav>
     </div>
 
-    <div class="row">
-      <CardProduct /><CardProduct /><CardProduct /><CardProduct />
-      <CardProduct /> <CardProduct /><CardProduct /><CardProduct />
-      <!-- <ProductList/> -->
+    <div class="w-full " >
+      <!-- <CardProduct v-for="product in products" :key="product._id" :product="product"/> -->
+      <!-- <div>item.name</div> -->
+      <ProductList :products="products"/>
     </div>
   </div>
 </template>
-<script lang="ts">
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-import ProductList from "../components/ProductList.vue";
+<script >
 import CardProduct from "../components/CardProduct.vue";
+import ProductList from "../components/ProductList.vue";
+
+import ProductService from "../services/product.service"
+const products = await ProductService.getProducts()
 export default {
   name: "Home",
-  mounted() {
-    // const user = localStorage.getItem("auth");
-    // // console.log(user);
-  },
-  data() {
-    const auth = JSON.parse(localStorage.getItem("auth"));
-     console.log(auth[0].email)
-    const useremail   = auth[0].email
-    return {
-      user:auth,
-      useremail: useremail
-    }
+
+  data () {
+    // console.log(products)
+    return { products: products}
   },
   components: {
-    CardProduct,
     ProductList,
-  },
+    CardProduct
+},
 };
 </script>
 <style>
 .primarynavigation :hover {
   color: red;
-  /* border:2px solid  */
+
 }
 </style>

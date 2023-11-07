@@ -10,6 +10,10 @@ router.post("/register", users.register);
 
 router.post("/login", users.login);
 
+router.post("/orderProduct",users.orderProduct);
 
+router.get("/getOrderProduct", users.getAllOrderProduct);
+
+router.post("/Order", users.Order);
 
 module.exports = router;

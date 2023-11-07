@@ -12,8 +12,8 @@ class ProductService {
       note: payload.note,
       img: {
         nameImg: payload.img.nameImg,
-        srcImg : payload.img.srcImg,
-    },
+        srcImg: payload.img.srcImg,
+      },
     };
 
     Object.keys(product).forEach(
@@ -22,21 +22,22 @@ class ProductService {
     return product;
   }
   async createProduct(payload) {
-    //  console.log(payload)
+    console.log(payload);
     const product = await this.extractProductData(payload);
     const result = await this.Product.findOneAndUpdate(
       product,
-      { $set: {  } },
+      { $set: {} },
       { returnDocument: "after", upsert: true }
     );
     return result;
   }
   async AllProducts() {
-
-    const result = await this.Product.find()
-    console.log( result.lenght);
-    return result
+    const products = await this.Product.find({});
+    //  console.log( result);
+    return await products.toArray();
   }
+
+ 
 }
 
 module.exports = ProductService;
