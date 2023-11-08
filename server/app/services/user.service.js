@@ -73,14 +73,19 @@ class UserService {
     const email = data.user;
     // console.log(email)
     const products = data.products;
-  // console.log(products)
+    // console.log(products)
     const phone = data.phone;
     // console.log(phone)
     const address = data.address;
     // console.log(address)
     const total = data.total;
 
-    const dataOrder ={ products: products,total : total, phone :phone, address : address};
+    const dataOrder = {
+      products: products,
+      total: total,
+      phone: phone,
+      address: address,
+    };
     // console.log(dataOrder)
     const result = await this.User.findOneAndUpdate(
       { email: email },
@@ -88,6 +93,37 @@ class UserService {
       { returnDocument: "after" }
     );
     // console.log(result)
+    return result;
+  }
+
+  async deleteOrderProduct(data) {
+    // console.log(data)
+    const email = data.user;
+    // console.log(email)
+    const product = data.product;
+    // console.log(product._id)
+    const quantity = data.quantity;
+    // console.log(quantity)
+    const dataOrder = { product: product, quantity: quantity };
+    // console.log(dataOrder);
+    const result = await this.User.findOneAndUpdate(
+      {
+        email: email,
+      },
+      {
+        $pull: {
+          giohang: [
+            {
+              product: {
+                _id: "123",
+              },
+            },
+          ],
+        },
+      },
+      { returnDocument: "after" }
+    );
+    console.log(result)
     return result;
   }
 }

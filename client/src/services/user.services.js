@@ -35,6 +35,10 @@ class UserService {
   async Order(data) {
     return await this.api.post("/Order", data);
   }
+  async deleteOrder(data) {
+    console.log(data);
+    return await this.api.get("/deleteOrderProduct", data);
+  }
 }
 
 export default new UserService();

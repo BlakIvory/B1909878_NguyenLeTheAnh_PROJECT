@@ -88,3 +88,22 @@ exports.Order = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.deleteOrderProduct = async (req, res) => {
+  // console.log(req.body);
+  try {
+ 
+      const userService = new UserService(MongoDB.client);
+    
+      const data = await userService.deleteOrderProduct(req.body);
+      const result = {
+        data: data,
+        message: "Xóa Thành Công !",
+      };
+      // console.log(result)
+      return res.send(result);
+  
+  } catch (error) {
+    console.log(error);
+  }
+};

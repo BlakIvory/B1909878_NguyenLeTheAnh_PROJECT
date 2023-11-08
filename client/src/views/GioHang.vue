@@ -52,7 +52,7 @@
                               <th scope="col">Đơn Giá</th>
                               <th scope="col">Số lượng</th>
                               <th scope="col">Thành Tiền</th>
-                              <th scope="col">Xử  Lí</th>
+                              <th scope="col">Xử Lí</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -75,7 +75,15 @@
                                   product.product.price * product.quantity
                                 }}.000
                               </td>
-                              <td class="d-flex justify-content-between w-75"><i class="fa-solid fa-pen-to-square text-primary"></i> <i class="fa-solid fa-trash text-danger"></i></td>
+                              <td class="d-flex justify-content-between w-75">
+                                <i
+                                  class="fa-solid fa-pen-to-square text-primary"
+                                ></i>
+                                <i
+                                  class="fa-solid fa-trash text-danger"
+                                  v-on:click="deleteOrder(product)"
+                                ></i>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -141,6 +149,7 @@ const products = productOrderData.data.products;
 export default {
   name: "giohang",
   data() {
+    
     return {
       products: products,
       total: 0,
@@ -172,8 +181,19 @@ export default {
       }
       // console.log(this.address);
     },
+    async deleteOrder(data) {
+      const product = data.product;
+      // console.log(product)
+      const inputdata = {
+        user: auth[0].email,
+        products: products,
+      }
+      const resutl = await UserServices.deleteOrder(inputdata);
+
+    },
   },
   mounted() {
+    // window.location.reload();
     for (var i = 0; i < products.length; i++) {
       this.total =
         this.total + products[i].product.price * products[i].quantity;

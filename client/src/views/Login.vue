@@ -87,7 +87,7 @@ export default {
       localStorage.setItem('auth', JSON.stringify(user.data))
       //  console.log(user)
       if (user) {
-        router.push("/home");
+        router.push("/giohang");
         Swal.fire({
           title: "Thông báo",
           text: "dang nhap thanh cong",
