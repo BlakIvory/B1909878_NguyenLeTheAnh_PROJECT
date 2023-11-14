@@ -96,13 +96,47 @@ exports.deleteOrderProduct = async (req, res) => {
       const userService = new UserService(MongoDB.client);
     
       const data = await userService.deleteOrderProduct(req.body);
+    if (data) {
       const result = {
         data: data,
         message: "Xóa Thành Công !",
       };
       // console.log(result)
       return res.send(result);
+     }
+    else { }
+    const result = {
+      message: "Xóa Không Thành Công !",
+    };
+    // console.log(result)
+    return res.send(result);
   
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+exports.deleteAllOrderProduct = async (req, res) => {
+  // console.log(req.body);
+  try {
+    const userService = new UserService(MongoDB.client);
+
+    const data = await userService.deleteAllOrderProduct(req.body);
+    if (data) {
+      const result = {
+        data: data,
+        message: "Xóa Thành Công !",
+      };
+      // console.log(result)
+      return res.send(result);
+    } else {
+    const result = {
+      message: "Xóa Không Thành Công !",
+    };
+    // console.log(result)
+    return res.send(result);
+    }
   } catch (error) {
     console.log(error);
   }

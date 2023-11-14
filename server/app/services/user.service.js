@@ -97,33 +97,45 @@ class UserService {
   }
 
   async deleteOrderProduct(data) {
-    // console.log(data)
+    console.log(data);
     const email = data.user;
     // console.log(email)
-    const product = data.product;
-    // console.log(product._id)
+    const product = data.product.product;
+    // console.log(product);
     const quantity = data.quantity;
     // console.log(quantity)
-    const dataOrder = { product: product, quantity: quantity };
+    // const dataOrder = { product: product, quantity: quantity };
     // console.log(dataOrder);
-    const result = await this.User.findOneAndUpdate(
+    const result = await this.User.updateOne(
       {
         email: email,
       },
       {
         $pull: {
-          giohang: [
-            {
-              product: {
-                _id: "123",
-              },
-            },
-          ],
+          giohang: {
+            product: product,
+          },
+        },
+      }
+    );
+    // console.log(result)
+    return result;
+  }
+
+  async deleteAllOrderProduct(data) {
+    const email = data.email;
+    // console.log(data.email)
+    const result = await this.User.findOneAndUpdate(
+      {
+        email: email,
+      },
+      {
+        $set: {
+          giohang: [],
         },
       },
       { returnDocument: "after" }
     );
-    console.log(result)
     return result;
   }
 }

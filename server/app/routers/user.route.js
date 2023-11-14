@@ -16,6 +16,8 @@ router.get("/getOrderProduct", users.getAllOrderProduct);
 
 router.post("/Order", users.Order);
 
-router.get("/deleteOrderProduct", users.deleteOrderProduct);
+router.post("/deleteOrderProduct", users.deleteOrderProduct);
+
+router.post("/deleteAllOrderProduct", users.deleteAllOrderProduct);
 
 module.exports = router;

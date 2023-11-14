@@ -5,7 +5,7 @@
     </div>
     <div>{{ product.name }}</div>
     <div>{{ product.price }} vnđ/Quyển</div>
-    <div class="oder-card flex">
+    <div class="oder-card ">
       <form @submit.prevent="orderProduct" class="row">
         <div>
           <input
@@ -53,6 +53,7 @@ input {
   justify-content: space-around;
 }
 .iconcard {
+  margin: 0 10px;
   cursor: pointer;
   color: rgb(71, 100, 100);
 }
@@ -105,7 +106,7 @@ export default {
 
         const resutl = await UserService.orderProducts(inputdata);
         Swal.fire("thông báo thành công ", resutl.data.message, "success");
-        // console.log(resutl);
+        // window.location.reload();
       }
     },
   },

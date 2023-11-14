@@ -36,8 +36,12 @@ class UserService {
     return await this.api.post("/Order", data);
   }
   async deleteOrder(data) {
-    console.log(data);
-    return await this.api.get("/deleteOrderProduct", data);
+    // console.log(data);
+    return await this.api.post("/deleteOrderProduct", data);
+  }
+  async deleteAllOrder(data) {
+    // console.log(data);
+    return await this.api.post("/deleteAllOrderProduct", data);
   }
 }
 

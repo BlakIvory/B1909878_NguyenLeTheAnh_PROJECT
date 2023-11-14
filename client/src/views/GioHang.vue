@@ -1,109 +1,41 @@
 <template>
   <div className="container ">
-    <div className="flex border  ">
-      <nav class="primary-navigation navbar navbar-expand">
-        <ul className="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item primarynavigation">
-            <router-link class="nav-link" :to="{ name: 'home' }"
-              >Trang Chủ |</router-link
-            >
-          </li>
-          <li class="nav-item primarynavigation">
-            <router-link class="nav-link" :to="{ name: 'home' }"
-              >Giới thiệu |</router-link
-            >
-          </li>
-          <li class="nav-item primarynavigation">
-            <router-link class="nav-link" :to="{ name: 'giohang' }"
-              >Giỏ hàng |</router-link
-            >
-          </li>
-          <li class="nav-item primarynavigation">
-            <router-link class="nav-link" :to="{ name: 'home' }"
-              >Đơn Hàng |</router-link
-            >
-          </li>
-          <li class="nav-item primarynavigation">
-            <router-link class="nav-link" :to="{ name: 'home' }"
-              >Cá Nhân |</router-link
-            >
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <header-mini/>
 
-    <div class="mt-3">
-      <section class="intro">
-        <div class="bg-image h-100">
-          <div class="mask d-flex align-items-center h-100">
-            <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="table-responsive">
-                        <table class="table table-borderless mb-0">
-                          <thead>
-                            <tr>
-                              <th scope="col">STT</th>
-                              <th scope="col">Tên Sản Phẩm</th>
-                              <th scope="col">Hình ảnh</th>
-
-                              <th scope="col">Đơn Giá</th>
-                              <th scope="col">Số lượng</th>
-                              <th scope="col">Thành Tiền</th>
-                              <th scope="col">Xử Lí</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr
-                              v-for="(product, index) in products"
-                              :key="index"
-                            >
-                              <th scope="row">{{ index + 1 }}</th>
-                              <td>{{ product.product.name }}</td>
-                              <td>
-                                <img
-                                  :src="product.product.img.srcImg"
-                                  :alt="product.product.img.nameImg"
-                                />
-                              </td>
-                              <td>{{ product.product.price }}.000</td>
-                              <td>{{ product.quantity }}</td>
-                              <td>
-                                {{
-                                  product.product.price * product.quantity
-                                }}.000
-                              </td>
-                              <td class="d-flex justify-content-between w-75">
-                                <i
-                                  class="fa-solid fa-pen-to-square text-primary"
-                                ></i>
-                                <i
-                                  class="fa-solid fa-trash text-danger"
-                                  v-on:click="deleteOrder(product)"
-                                ></i>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="m-3">
+      <section>
+        <TableOrder :products="products"/>
       </section>
+      <!-- <section class="">
+        <table class="table_order table">
+          <thead class="w-full thead-dark ">
+            <tr>
+              <th scope="col">STT</th>
+              <th scope="col">Tên Sản Phẩm</th>
+              <th scope="col">Hình ảnh</th>
+
+              <th scope="col">Đơn Giá</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Thành Tiền</th>
+              <th scope="col">Xử Lí</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(product, index) in products" :key="index">
+              <th scope="row">{{ index + 1 }}</th>
+             <OrderItemProduct  :product="product" />
+            </tr>
+          </tbody>
+        </table>
+      </section> -->
       <section class="m-3 row w-[500px]">
-        <div class="box p-2 flex items-center justify-content-center">
+        <div class="box p-2 items-center justify-content-center">
           <div>THÔNG TIN ĐƠN HÀNG</div>
           <div></div>
           <div class="box-info">
             <div>Số điện thoại :</div>
             <div>
-              <input v-model="phone" class="m-1" type="text" name="" id="" />
+              <input v-model="phone" class="m-1" type="text" name="" id="" placeholder=" *gồm 10 số*"/>
             </div>
           </div>
           <div class="box-info">
@@ -139,8 +71,10 @@
 </template>
 <script>
 import Swal from "sweetalert2";
-import ItemProduct from "../components/ItemProduct.vue";
+import OrderItemProduct from "../components/OrderItemProduct.vue";
+import TableOrder from "../components/TableOrder.vue";
 import UserServices from "../services/user.services";
+import HeaderMini from "../components/HeaderMini.vue";
 const auth = JSON.parse(localStorage.getItem("auth"));
 // console.log(auth[0].email)
 const productOrderData = await UserServices.getAllOrderProducts(auth[0].email);
@@ -149,7 +83,6 @@ const products = productOrderData.data.products;
 export default {
   name: "giohang",
   data() {
-    
     return {
       products: products,
       total: 0,
@@ -158,11 +91,13 @@ export default {
     };
   },
   components: {
-    ItemProduct,
+    OrderItemProduct,
+    TableOrder,
+    HeaderMini
   },
   methods: {
     async order() {
-      if (!this.phone || !this.address || this.phone.length != 10) {
+      if (!this.phone || !this.address ) {
         Swal.fire(
           "Cảnh báo",
           "Số điện thoại hoặc địa chỉ không hợp lệ !",
@@ -177,19 +112,17 @@ export default {
           address: this.address,
         };
         const resutl = await UserServices.Order(dataInputOrder);
-        console.log(resutl);
+        if (!resutl.data) {
+          Swal.fire("Thông báo ", resutl.data.message,"warning");
+        }
+        else {
+          Swal.fire("Thành Công" , resutl.data.message,"success");
+        }
+        const deleteOrder = await UserServices.deleteAllOrder({"email":auth[0].email});
+        // console.log(deleteOrder)
+        // console.log({"email" :auth[0].email})
       }
       // console.log(this.address);
-    },
-    async deleteOrder(data) {
-      const product = data.product;
-      // console.log(product)
-      const inputdata = {
-        user: auth[0].email,
-        products: products,
-      }
-      const resutl = await UserServices.deleteOrder(inputdata);
-
     },
   },
   mounted() {
@@ -204,14 +137,19 @@ export default {
 </script>
 <style>
 img {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
+}
+td {
+  height: 80px;
+}
+input {
+  width: 150px;
 }
 .box {
   width: 50%;
   border: 2px solid gray;
   display: grid;
-
   align-items: center;
   justify-content: space-between;
 }
@@ -230,5 +168,12 @@ img {
 }
 .button:hover {
   background: greenyellow;
+}
+.table_order {
+  margin: 10px;
+  padding: auto;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
 }
 </style>
