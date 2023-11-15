@@ -82,9 +82,17 @@ export default {
     const router = useRouter();
 
     const submit = async () => {
-      const user = await UserService.login(data);
+      const datas = await UserService.login(data);
+      // console.log(datas.data[0])
+      const user = {
+        email: datas.data[0].email,
+        isAdmin: datas.data[0].isAdmin,
+        password: datas.data[0].password,
+        _id : datas.data[0]._id,
+      }
 
-      localStorage.setItem('auth', JSON.stringify(user.data))
+
+      localStorage.setItem('auth', JSON.stringify(user))
       //  console.log(user)
       if (user) {
         router.push("/home");

@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="">
-      <table class="table_order table">
+      <table class="table">
         <thead class="w-full thead-dark">
           <tr>
             <th scope="col">STT</th>
@@ -37,4 +37,6 @@ export default {
   
 };
 </script>
-<style lang=""></style>
+<style lang="">
+
+</style>

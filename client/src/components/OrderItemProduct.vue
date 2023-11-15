@@ -38,7 +38,7 @@ export default {
     
   // console.log(data.product._id)
       const inputdata = {
-        user: auth[0].email,
+        user: auth.email,
         product: {
           product: data.product,
           quantity: data.quantity,

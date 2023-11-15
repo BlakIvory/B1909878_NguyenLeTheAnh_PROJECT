@@ -1,12 +1,12 @@
 <template>
-  <div class="card border m-2 p-2">
+  <div class="m-2 p-3 box">
     <div>
       <img :src="product.img.srcImg" :alt="product.img.nameImg" />
     </div>
     <div>{{ product.name }}</div>
     <div>{{ product.price }} vnđ/Quyển</div>
-    <div class="oder-card ">
-      <form @submit.prevent="orderProduct" class="row">
+    <div class="">
+      <form @submit.prevent="orderProduct" class="row justify-content-around">
         <div>
           <input
             type="number"
@@ -16,7 +16,7 @@
             v-model="formData.quantity"
           />
         </div>
-        <div class="iconcard">
+        <div class="">
           <button type="submit">
             <i class="fa-solid fa-cart-shopping" style="font-size: 24px"></i>
           </button>
@@ -27,26 +27,25 @@
 </template>
 <style>
 img {
-  width: 180px;
-  height: 150px;
+  width: 150px;
+  height: 130px;
   background: fixed;
 }
-input {
+.box input{
   width: 50px;
 }
 
-.card {
+.box {
   width: 200px;
   height: 250px;
-  border: 10px solid 5px rgb(11, 11, 12);
-  border-color: aqua;
   background: aliceblue;
-  display: flex;
+  border: 2px solid rgb(223, 189, 189);
+  border-radius:5px ;
   text-align: center;
   justify-content: center;
   color: black;
 }
-.oder-card {
+.order-card {
   margin: 5px 0 0 0;
   display: flex;
   text-align: center;
@@ -82,7 +81,7 @@ export default {
         Swal.fire("thông báo ", "Vui lòng nhập số lượng hàng ", "warning");
       } else {
         const user = JSON.parse(localStorage.getItem("auth"));
-        const emailuser = user[0].email;
+        const emailuser = user.email;
         // console.log(this.formData.quantity);
         // console.log(emailuser)
         const productdata = {

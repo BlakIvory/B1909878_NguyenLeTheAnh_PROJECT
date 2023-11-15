@@ -141,3 +141,29 @@ exports.deleteAllOrderProduct = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.getUserOrder = async (req, res) => {
+  // console.log(req.body);
+  // return res.send("req.body");
+  try {
+    const userService = new UserService(MongoDB.client);
+
+    const data = await userService.check(req.body);
+    if (data) {
+      const result = {
+        data: data[0].order,
+        message: "Tìm Thành Công !",
+      };
+      // console.log(result)
+      return res.send(result);
+    } else {
+      const result = {
+        message: "Tìm kiếm Không Thành Công !",
+      };
+      // console.log(result)
+      return res.send(result);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};

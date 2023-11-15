@@ -80,11 +80,13 @@ class UserService {
     // console.log(address)
     const total = data.total;
 
+  
     const dataOrder = {
       products: products,
       total: total,
       phone: phone,
       address: address,
+      status : 1
     };
     // console.log(dataOrder)
     const result = await this.User.findOneAndUpdate(

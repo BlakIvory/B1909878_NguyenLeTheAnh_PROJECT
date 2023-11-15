@@ -43,6 +43,17 @@ class UserService {
     // console.log(data);
     return await this.api.post("/deleteAllOrderProduct", data);
   }
+  async UserOrder(email) {
+    const data = {
+     "email": email
+   }
+    try {
+      // console.log(data);
+      return await this.api.post("/userOrder", data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new UserService();

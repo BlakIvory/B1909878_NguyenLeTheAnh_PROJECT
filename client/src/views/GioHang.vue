@@ -6,28 +6,7 @@
       <section>
         <TableOrder :products="products"/>
       </section>
-      <!-- <section class="">
-        <table class="table_order table">
-          <thead class="w-full thead-dark ">
-            <tr>
-              <th scope="col">STT</th>
-              <th scope="col">Tên Sản Phẩm</th>
-              <th scope="col">Hình ảnh</th>
-
-              <th scope="col">Đơn Giá</th>
-              <th scope="col">Số lượng</th>
-              <th scope="col">Thành Tiền</th>
-              <th scope="col">Xử Lí</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(product, index) in products" :key="index">
-              <th scope="row">{{ index + 1 }}</th>
-             <OrderItemProduct  :product="product" />
-            </tr>
-          </tbody>
-        </table>
-      </section> -->
+ 
       <section class="m-3 row w-[500px]">
         <div class="box p-2 items-center justify-content-center">
           <div>THÔNG TIN ĐƠN HÀNG</div>
@@ -77,7 +56,7 @@ import UserServices from "../services/user.services";
 import HeaderMini from "../components/HeaderMini.vue";
 const auth = JSON.parse(localStorage.getItem("auth"));
 // console.log(auth[0].email)
-const productOrderData = await UserServices.getAllOrderProducts(auth[0].email);
+const productOrderData = await UserServices.getAllOrderProducts(auth.email);
 const products = productOrderData.data.products;
 // console.log(products);
 export default {
@@ -105,7 +84,7 @@ export default {
         );
       } else {
         const dataInputOrder = {
-          user: auth[0].email,
+          user: auth.email,
           products: products,
           total: this.total,
           phone: this.phone,
@@ -118,7 +97,7 @@ export default {
         else {
           Swal.fire("Thành Công" , resutl.data.message,"success");
         }
-        const deleteOrder = await UserServices.deleteAllOrder({"email":auth[0].email});
+        const deleteOrder = await UserServices.deleteAllOrder({"email":auth.email});
         // console.log(deleteOrder)
         // console.log({"email" :auth[0].email})
       }
@@ -169,11 +148,5 @@ input {
 .button:hover {
   background: greenyellow;
 }
-.table_order {
-  margin: 10px;
-  padding: auto;
-  justify-content: center;
-  width: 100%;
-  align-items: center;
-}
+
 </style>
