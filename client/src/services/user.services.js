@@ -45,13 +45,22 @@ class UserService {
   }
   async UserOrder(email) {
     const data = {
-     "email": email
-   }
+      email: email,
+    };
     try {
       // console.log(data);
       return await this.api.post("/userOrder", data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
+    }
+  }
+  async AllUserOrder() {
+    
+    try {
+      // console.log(data);
+      return await this.api.get("/allUserOrder");
+    } catch (error) {
+      console.log(error);
     }
   }
 }

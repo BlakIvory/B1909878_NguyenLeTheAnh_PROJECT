@@ -102,7 +102,7 @@ export default {
           icon: "success",
           confirmButtonText: "OK",
         });
-     
+    //  window.location.reload();
       } else {
         //  message = user.data.message
         console.log(user);

@@ -25,7 +25,7 @@
   </div>
 </template>
 <script>
-import OrderItemProduct from "../components/OrderItemProduct.vue";
+import OrderItemProduct from "@/components/OrderItemProduct.vue";
 export default {
   name: "TableOrder",
   props: {

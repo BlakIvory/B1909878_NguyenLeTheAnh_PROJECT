@@ -27,13 +27,27 @@
             >Cá Nhân |</router-link
           >
         </li>
+        <li class="nav-item primarynavigation" v-if="isAdmin===true">
+          <router-link class="nav-link" :to="{ name: 'themsanpham' }"
+            >Thêm Sản Phẩm |</router-link
+          >
+        </li>
       </ul>
     </nav>
   </div>
 </template>
 <script>
+
+const auth = JSON.parse(localStorage.getItem("auth"))
+// console.log(auth.isAdmin)
+const isAdmin = auth.isAdmin
 export default {
   name: "headermini",
+  data() {
+  return {
+    isAdmin: isAdmin,
+  }
+}
 };
 </script>
 <style></style>

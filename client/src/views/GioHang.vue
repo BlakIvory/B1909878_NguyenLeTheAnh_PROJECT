@@ -50,8 +50,8 @@
 </template>
 <script>
 import Swal from "sweetalert2";
-import OrderItemProduct from "../components/OrderItemProduct.vue";
-import TableOrder from "../components/TableOrder.vue";
+import OrderItemProduct from "@/components/OrderItemProduct.vue";
+import TableOrder from "@/components/TableOrder.vue";
 import UserServices from "../services/user.services";
 import HeaderMini from "../components/HeaderMini.vue";
 const auth = JSON.parse(localStorage.getItem("auth"));

@@ -20,7 +20,7 @@
 <script>
 import CardProduct from "../components/CardProduct.vue";
 import ProductList from "../components/ProductList.vue";
-import ProductService from "../services/product.service";
+import ProductService from "../services/product.services";
 import HeaderMini from "../components/HeaderMini.vue";
 const products = await ProductService.getProducts();
 export default {

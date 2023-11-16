@@ -167,3 +167,15 @@ exports.getUserOrder = async (req, res) => {
     console.log(error);
   }
 };
+
+
+exports.getAllUserOrder = async (req, res) => {
+  try {
+    const userService = new UserService(MongoDB.client);
+
+    const result = await userService.check({});
+      return res.send(result);
+  } catch (error) {
+    console.log(error);
+  }
+};

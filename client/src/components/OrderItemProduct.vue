@@ -44,7 +44,7 @@ export default {
           quantity: data.quantity,
         } 
       };
-      // console.log(inputdata);
+      console.log(inputdata);
       const resutl = await UserServices.deleteOrder(inputdata);
       // console.log(resutl.data.message);
       if (resutl) {
@@ -55,4 +55,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+img{
+  width: 100px;
+  height: 100px;
+}
+</style>
