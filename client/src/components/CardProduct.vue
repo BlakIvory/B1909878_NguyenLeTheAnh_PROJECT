@@ -4,7 +4,7 @@
       <img :src="product.img.srcImg" :alt="product.img.nameImg" />
     </div>
     <div>{{ product.name }}</div>
-    <div>{{ product.price }} vnđ/Quyển</div>
+    <div>{{ product.price }}.000 vnđ/Quyển</div>
     <div class="">
       <form @submit.prevent="orderProduct" class="row justify-content-around">
         <div>

@@ -55,10 +55,17 @@ class UserService {
     }
   }
   async AllUserOrder() {
-    
     try {
       // console.log(data);
       return await this.api.get("/allUserOrder");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async confirmUserOrder(data) {
+    try {
+      console.log(data);
+      return await this.api.post("/confirmUserOrder",data);
     } catch (error) {
       console.log(error);
     }

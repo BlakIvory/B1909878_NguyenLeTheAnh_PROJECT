@@ -7,11 +7,11 @@
             >Trang Chủ |</router-link
           >
         </li>
-        <li class="nav-item primarynavigation">
+        <!-- <li class="nav-item primarynavigation">
           <router-link class="nav-link" :to="{ path: '/home' }"
             >Giới thiệu |</router-link
           >
-        </li>
+        </li> -->
         <li class="nav-item primarynavigation">
           <router-link class="nav-link" :to="{ path: '/giohang' }"
             >Giỏ Hàng |</router-link
@@ -22,11 +22,11 @@
             >Đơn Hàng |</router-link
           >
         </li>
-        <li class="nav-item primarynavigation">
+        <!-- <li class="nav-item primarynavigation">
           <router-link class="nav-link" :to="{ name: 'home' }"
             >Cá Nhân |</router-link
           >
-        </li>
+        </li> -->
         <li class="nav-item primarynavigation" v-if="isAdmin===true">
           <router-link class="nav-link" :to="{ name: 'themsanpham' }"
             >Thêm Sản Phẩm |</router-link

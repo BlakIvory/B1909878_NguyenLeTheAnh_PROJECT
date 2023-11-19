@@ -92,10 +92,9 @@ exports.Order = async (req, res) => {
 exports.deleteOrderProduct = async (req, res) => {
   // console.log(req.body);
   try {
- 
-      const userService = new UserService(MongoDB.client);
-    
-      const data = await userService.deleteOrderProduct(req.body);
+    const userService = new UserService(MongoDB.client);
+
+    const data = await userService.deleteOrderProduct(req.body);
     if (data) {
       const result = {
         data: data,
@@ -103,19 +102,17 @@ exports.deleteOrderProduct = async (req, res) => {
       };
       // console.log(result)
       return res.send(result);
-     }
-    else { }
+    } else {
+    }
     const result = {
       message: "Xóa Không Thành Công !",
     };
     // console.log(result)
     return res.send(result);
-  
   } catch (error) {
     console.log(error);
   }
 };
-
 
 exports.deleteAllOrderProduct = async (req, res) => {
   // console.log(req.body);
@@ -131,11 +128,11 @@ exports.deleteAllOrderProduct = async (req, res) => {
       // console.log(result)
       return res.send(result);
     } else {
-    const result = {
-      message: "Xóa Không Thành Công !",
-    };
-    // console.log(result)
-    return res.send(result);
+      const result = {
+        message: "Xóa Không Thành Công !",
+      };
+      // console.log(result)
+      return res.send(result);
     }
   } catch (error) {
     console.log(error);
@@ -168,13 +165,38 @@ exports.getUserOrder = async (req, res) => {
   }
 };
 
-
 exports.getAllUserOrder = async (req, res) => {
   try {
     const userService = new UserService(MongoDB.client);
 
     const result = await userService.check({});
-      return res.send(result);
+    return res.send(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.confirmUserOrder = async (req, res) => {
+  // console.log(req.body)
+  try {
+    const userService = new UserService(MongoDB.client);
+
+    const data = await userService.comfirmUserOrderProduct(req.body);
+    let result;
+    let status;
+    if (data.modifiedCount > 0) {
+      result = {
+        status: "1",
+        message: "Xác Nhận Đơn hàng thành Công!!!",
+      };
+    } else {
+      result = {
+        status: "0",
+        message: "Xác Nhận Đơn hàng KHÔNG thành Công!!!",
+      };
+    }
+
+    return res.send(result);
   } catch (error) {
     console.log(error);
   }

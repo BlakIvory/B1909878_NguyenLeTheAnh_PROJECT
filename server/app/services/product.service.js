@@ -4,6 +4,7 @@ class ProductService {
     this.Product = client.db().collection("products");
   }
   extractProductData(payload) {
+    // console.log(payload)
     const product = {
       name: payload.name,
       description: payload.description,
@@ -11,8 +12,8 @@ class ProductService {
       quantity: payload.quantity,
       note: payload.note,
       img: {
-        nameImg: payload.img.nameImg,
-        srcImg: payload.img.srcImg,
+        nameImg: payload.name,
+        srcImg: payload.img,
       },
     };
 

@@ -22,7 +22,7 @@
           <input
             type="number"
             min="0"
-            step="10"
+            step="1"
             v-model="product.price"
             placeholder="giá sản phẩm"
             required
@@ -48,7 +48,9 @@
         </div>
         <div class="form_addproduct">
           <label for="">Hình ảnh :</label>
-          <input type="file" required @change="handleFileUpload" />
+          <input type="file" required
+           
+           />
         </div>
         <div class="form_addproduct">
           <label for="">Ghi chú :</label>
@@ -75,7 +77,7 @@ export default {
         note: "",
         price: "",
         quantity: "",
-        img: null,
+        img: "",
       },
     };
   },
@@ -90,7 +92,7 @@ export default {
       formData.append('price', this.product.price);
       formData.append('quantity', this.product.quantity);
       formData.append('img', this.product.img);
-            // console.log(formData)
+            console.log(formData)
           const result = await ProductService.createProduct(formData);
             console.log(result)
         },

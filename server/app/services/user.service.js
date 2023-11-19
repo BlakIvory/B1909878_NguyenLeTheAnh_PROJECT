@@ -80,13 +80,12 @@ class UserService {
     // console.log(address)
     const total = data.total;
 
-  
     const dataOrder = {
       products: products,
       total: total,
       phone: phone,
       address: address,
-      status : 1
+      status: 1,
     };
     // console.log(dataOrder)
     const result = await this.User.findOneAndUpdate(
@@ -138,6 +137,32 @@ class UserService {
       },
       { returnDocument: "after" }
     );
+    return result;
+  }
+
+  async comfirmUserOrderProduct(data) {
+    console.log(data)
+    const email = data.email;
+    // console.log(data.order[0].products)
+    const result = await this.User.updateOne(
+      {
+        email: email,
+        'order.products': data.order[0].products,
+        'order.total': data.order[0].total,
+        'order.phone': data.order[0].phone,
+        'order.address': data.order[0].address,
+        'order.status': 1,
+      },
+      {
+        $set: {
+          'order.$.status': 2,
+        },
+      },
+      {
+        returnDocument: "after",
+      }
+    );
+    console.log(result)
     return result;
   }
 }

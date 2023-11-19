@@ -23,4 +23,7 @@ router.post("/deleteAllOrderProduct", users.deleteAllOrderProduct);
 router.post("/userOrder", users.getUserOrder);
 
 router.get("/allUserOrder", users.getAllUserOrder);
+
+router.post("/confirmUserOrder", users.confirmUserOrder);
+
 module.exports = router;
