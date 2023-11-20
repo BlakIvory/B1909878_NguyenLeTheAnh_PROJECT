@@ -55,10 +55,11 @@ import TableOrder from "@/components/TableOrder.vue";
 import UserServices from "../services/user.services";
 import HeaderMini from "../components/HeaderMini.vue";
 const auth = JSON.parse(localStorage.getItem("auth"));
-// console.log(auth[0].email)
+console.log(auth.email)
 const productOrderData = await UserServices.getAllOrderProducts(auth.email);
+// console.log(productOrderData)
 const products = productOrderData.data.products;
-// console.log(products);
+console.log(products);
 export default {
   name: "giohang",
   data() {

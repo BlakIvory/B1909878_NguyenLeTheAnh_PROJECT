@@ -35,7 +35,7 @@ exports.getAllOrderProduct = async (req, res) => {
     const userService = new UserService(MongoDB.client);
     // const message = "Thêm vào giỏ hàng thành công !";
     const data = await userService.check(req.body);
-    // console.log(data[0].giohang)
+    // console.log(data[0].giohang);
     const result = {
       products: data[0].giohang,
       message: "Tìm kiếm thành công !",
@@ -167,6 +167,7 @@ exports.getUserOrder = async (req, res) => {
 
 exports.getAllUserOrder = async (req, res) => {
   try {
+    
     const userService = new UserService(MongoDB.client);
 
     const result = await userService.check({});

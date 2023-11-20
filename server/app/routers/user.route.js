@@ -12,7 +12,7 @@ router.post("/login", users.login);
 
 router.post("/orderProduct",users.orderProduct);
 
-router.get("/getOrderProduct", users.getAllOrderProduct);
+router.post("/getOrderProduct", users.getAllOrderProduct);
 
 router.post("/Order", users.Order);
 
@@ -22,7 +22,7 @@ router.post("/deleteAllOrderProduct", users.deleteAllOrderProduct);
 
 router.post("/userOrder", users.getUserOrder);
 
-router.get("/allUserOrder", users.getAllUserOrder);
+router.post("/allUserOrder", users.getAllUserOrder);
 
 router.post("/confirmUserOrder", users.confirmUserOrder);
 

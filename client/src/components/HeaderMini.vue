@@ -13,7 +13,7 @@
           >
         </li> -->
         <li class="nav-item primarynavigation">
-          <router-link class="nav-link" :to="{ path: '/giohang' }"
+          <router-link class="nav-link" :to="{ name: 'giohang' }"
             >Giỏ Hàng |</router-link
           >
         </li>

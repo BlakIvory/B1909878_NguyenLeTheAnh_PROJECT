@@ -1,7 +1,7 @@
 <template>
   <div class="m-2 p-3 box">
     <div>
-      <img :src="product.img.srcImg" :alt="product.img.nameImg" />
+      <img v-on:click="handelshowPopup" :src="product.img.srcImg" :alt="product.img.nameImg" />
     </div>
     <div>{{ product.name }}</div>
     <div>{{ product.price }}.000 vnđ/Quyển</div>
@@ -72,6 +72,7 @@ export default {
       formData: {
         quantity: "0",
       },
+      showPopup: false,
     };
   },
   methods: {
@@ -102,12 +103,22 @@ export default {
           quantity: this.formData.quantity,
         };
         // console.log(inputdata)
-
-        const resutl = await UserService.orderProducts(inputdata);
+        if (this.formData.quantity > this.product.quantity) {
+           Swal.fire("thông báo", "Lượng hàng tồn không đủ !! hàng tồn :" + this.product.quantity, "warning");
+        } else {
+           const resutl = await UserService.orderProducts(inputdata);
         Swal.fire("thông báo thành công ", resutl.data.message, "success");
+        }
+        // console.log(this.product)
+       
         // window.location.reload();
       }
     },
+
+    handelshowPopup() {
+    this.showPopup=true;
+      console.log(this.showPopup)
+    }
   },
 };
 </script>

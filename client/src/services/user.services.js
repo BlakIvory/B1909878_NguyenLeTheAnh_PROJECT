@@ -1,4 +1,3 @@
-
 import createApiClient from "./api.service";
 
 class UserService {
@@ -29,8 +28,10 @@ class UserService {
     return await this.api.post("/orderProduct", data);
   }
 
-  async getAllOrderProducts(data) {
-    return await this.api.get("/getOrderProduct", data);
+  async getAllOrderProducts(user) {
+    const data = { email: user };
+    // console.log(data);
+    return await this.api.post("/getOrderProduct", data);
   }
   async Order(data) {
     return await this.api.post("/Order", data);
@@ -47,25 +48,20 @@ class UserService {
     const data = {
       email: email,
     };
-    try {
-      // console.log(data);
-      return await this.api.post("/userOrder", data);
-    } catch (error) {
-      console.log(error);
-    }
+    return await this.api.post("/userOrder", data);
   }
   async AllUserOrder() {
     try {
       // console.log(data);
-      return await this.api.get("/allUserOrder");
+      return await this.api.post("/allUserOrder");
     } catch (error) {
       console.log(error);
     }
   }
   async confirmUserOrder(data) {
     try {
-      console.log(data);
-      return await this.api.post("/confirmUserOrder",data);
+      // console.log(data);
+      return await this.api.post("/confirmUserOrder", data);
     } catch (error) {
       console.log(error);
     }
