@@ -8,12 +8,12 @@
         placeholder="Nhập sách cần tìm kiếm ..."
         
       />
-      <button v-on:click="performSearch" >
+      <button >
         <i class="fa-solid fa-magnifying-glass cursor-pointer"></i>
       </button>
     </div>
     <div class="w-full">
-      <ProductList :products="products" />
+      <ProductList :products="products" :searchText="searchText" />
     </div>
   </div>
 </template>
@@ -23,13 +23,14 @@ import ProductList from "../components/ProductList.vue";
 import ProductService from "../services/product.services";
 import HeaderMini from "../components/HeaderMini.vue";
 const products = await ProductService.getProducts();
+console.log(products)
 export default {
   name: "Home",
 
   data() {
     return {
       products: products,
-      searchText:"",
+      searchText: "",
     };
   },
   components: {
@@ -38,27 +39,9 @@ export default {
     HeaderMini,
   },
   methods: {
-    // performSearch() {
-    //   // console.log(this.products)
-    //   // Thực hiện tìm kiếm trong array
-    //   const filteredItems = this.products.filter(product =>{
-    //       product.toLowerCase().includes(this.searchText.toLowerCase())
-    //     console.log(product)
-    //   }
-      
-    //   );
-    //   // console.log(filteredItems); // In kết quả tìm kiếm
-    // }
   },
-  computed: {
-    // filteredItems() {
-    //   console.log(this.searchText)
-    //   return this.products.filter((product) => {
-    //     console.log(product.toLowerCase().includes(this.searchText.toLowerCase())) 
-    //   });
-    // },
-  },
-};
+  
+}
 </script>
 <style>
 .primarynavigation:hover {
